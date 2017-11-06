@@ -47,7 +47,7 @@ store.dispatch(addExpense({
     createdAt: 5
 }))
 
-const state = store.getState()
+//const state = store.getState()
 
 const jsx = (
     <Provider store={store}>
