@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should display a message with no expense passed in 1`] = `
+<div>
+  <p>
+    Add a new expense to begin ...
+  </p>
+</div>
+`;
+
+exports[`should render expense list correctly with expenses 1`] = `
+<div>
+  <ExpenseItem
+    amount={250}
+    createdAt={0}
+    description="Gum"
+    id={1}
+    key="1"
+    note=""
+  />
+  <ExpenseItem
+    amount={10390}
+    createdAt={-345600000}
+    description="Cake"
+    id={2}
+    key="2"
+    note="Chocolate"
+  />
+  <ExpenseItem
+    amount={4500}
+    createdAt={345600000}
+    description="Credit"
+    id={3}
+    key="3"
+    note=""
+  />
+</div>
+`;
