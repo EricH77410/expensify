@@ -62,3 +62,14 @@ test('should not edit expense if not found',()=>{
     const res = expensesReducer(expenses,action);
     expect(res).toEqual(expenses)
 })
+
+test('should set expenses with all expenses', ()=>{
+    const action = {
+        type: 'SET_EXPENSES',
+        expenses
+    }
+
+    const res = expensesReducer(expenses, action);
+
+    expect(res).toEqual(expenses)
+})
