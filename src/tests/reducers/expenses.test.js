@@ -41,7 +41,7 @@ test('should add an expense', () => {
 test('should edit an expense by id', ()=>{
     const action = {
         type: 'EDIT_EXPENSE',
-        id: 2,
+        id: '2',
         update: {
             description:'Banana Cake',
             amount: 4500
