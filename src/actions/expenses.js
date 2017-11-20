@@ -33,6 +33,16 @@ export const removeExpense = ({id}) => {
         id
     }
 }
+// ASYNC
+export const startRemoveExpense = ({id})=>{
+    return (dispatch) => {
+        return database.ref(`expenses/${id}`).remove()
+            .then(()=>{
+                dispatch(removeExpense({id}))
+            })
+    }
+}
+
 // EDIT_EXPENSE
 export const editExpense = (id,update) => {
     return {
@@ -66,3 +76,5 @@ export const startSetExpenses = () => {
         })
     }
 }
+
+

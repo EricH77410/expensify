@@ -4,13 +4,13 @@ import { EditExpensePage } from '../../components/EditExpensePage'
 
 import expenses from '../fixtures/expenses';
 
-let wrapper, editExpense, history, removeExpense, editedExpense;
+let wrapper, editExpense, history, editedExpense, startRemoveExpense;
 
 beforeEach(()=>{
     editExpense = jest.fn()
-    removeExpense = jest.fn()
+    startRemoveExpense = jest.fn()
     history = {push: jest.fn()}
-    wrapper = shallow(<EditExpensePage expense={expenses[0]} removeExpense={removeExpense} editExpense={editExpense} history={history}/>);
+    wrapper = shallow(<EditExpensePage expense={expenses[0]} startRemoveExpense={startRemoveExpense} editExpense={editExpense} history={history}/>);
     editedExpense = {
         note:'Salut'
     }
@@ -26,8 +26,8 @@ test('should edit expense with new data', ()=> {
     expect(editExpense).toHaveBeenLastCalledWith(expenses[0].id,editedExpense);
 })
 
-test('should removeExpense', ()=>{
+test('should removeExpense from firebase', ()=>{
     wrapper.find('button').simulate('click');
-    expect(removeExpense).toHaveBeenLastCalledWith({id:expenses[0].id});
+    expect(startRemoveExpense).toHaveBeenLastCalledWith({id:expenses[0].id});
     expect(history.push).toHaveBeenLastCalledWith('/')
 })
