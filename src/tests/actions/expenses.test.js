@@ -14,13 +14,15 @@ import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
+const uid = '123aze';
+const defaultAuthState = {auth: {uid}}
 
 beforeEach((done)=>{
     const expensesData = {};
     expenses.forEach(({id, description, note, amount, createdAt})=>{
         expensesData[id] = {description,note,amount,createdAt}
     })
-    database.ref('expenses').set(expensesData).then(()=>done());
+    database.ref(`users/${uid}/expenses`).set(expensesData).then(()=>done());
 })
 
 test('should setup remove expense action', () => {
@@ -58,24 +60,9 @@ test('should setup add expense',()=>{
     })
 })
 
-// test('should setup add expense with default value', () => {
-//     const data = {
-//             id: expect.any(String),
-//             description:'',
-//             note:'',
-//             amount:0,
-//             createdAt:0
-//         }
-//     const action = addExpense();
-//     expect(action).toEqual({
-//         type: 'ADD_EXPENSE',
-//         expense: {...data}
-//     })
-// })
-
 // Asynchronous test
 test('should add expense to database and store', (done)=>{
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const expenseData = {
         description: 'Mock store',
         amount: 4590,
@@ -93,7 +80,7 @@ test('should add expense to database and store', (done)=>{
                    ...expenseData
                }
             });
-            return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+            return database.ref(`users/${uid}/expenses/${actions[0].expense.id}`).once('value')
         }).then((snap)=>{
             expect(snap.val()).toEqual(expenseData)
             done();
@@ -101,7 +88,7 @@ test('should add expense to database and store', (done)=>{
 })
 
 test('should add expense with default to database and store', (done)=>{
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
 
     store.dispatch(startAddExpense({}))
         .then(()=>{
@@ -116,7 +103,7 @@ test('should add expense with default to database and store', (done)=>{
                     id:expect.any(String)
                 }
             })
-            return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+            return database.ref(`users/${uid}/expenses/${actions[0].expense.id}`).once('value')
         }).then((snap)=>{
             expect(snap.val()).toEqual({description:'',note:'',amount:0,createdAt:0})
             done()
@@ -132,7 +119,7 @@ test('should setup setExpenses action with data', ()=>{
 })
 
 test('should fetch the expenses from firebase', (done)=>{
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     store.dispatch(startSetExpenses()).then(()=>{
         const actions = store.getActions();
         expect(actions[0]).toEqual({
@@ -144,7 +131,7 @@ test('should fetch the expenses from firebase', (done)=>{
 })
 
 test('should remove an expense from firebase', (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const id = expenses[1].id
     store.dispatch(startRemoveExpense({id}))
         .then(()=>{
@@ -153,7 +140,7 @@ test('should remove an expense from firebase', (done) => {
                 type: 'REMOVE_EXPENSE',
                 id
             })
-            return database.ref(`expenses/${id}`).once('value');
+            return database.ref(`users/${uid}/expenses/${id}`).once('value');
         }).then((snap) => {
             expect(snap.val()).toBeFalsy()
             done()
@@ -161,7 +148,7 @@ test('should remove an expense from firebase', (done) => {
 })
 
 test('should edit expense from firebase', (done)=>{
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const id = expenses[1].id
     const update = {
         description:'This is my edited expense',
@@ -173,7 +160,7 @@ test('should edit expense from firebase', (done)=>{
             id,
             update
         })
-        return database.ref(`expenses/${id}`).once('value')
+        return database.ref(`users/${uid}/expenses/${id}`).once('value')
     }).then((snap)=>{
         expect(snap.val().amount).toBe(update.amount);
         done()
