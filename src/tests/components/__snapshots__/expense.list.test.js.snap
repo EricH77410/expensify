@@ -1,38 +1,92 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should display a message with no expense passed in 1`] = `
-<div>
-  <p>
-    Add a new expense to begin ...
-  </p>
+<div
+  className="content-container"
+>
+  <div
+    className="list-header"
+  >
+    <div
+      className="show-for-mobile"
+    >
+      Expenses
+    </div>
+    <div
+      className="show-for-desktop"
+    >
+      Expense
+    </div>
+    <div
+      className="show-for-desktop"
+    >
+      Amount
+    </div>
+  </div>
+  <div
+    className="list-body"
+  >
+    <div
+      className="list-item--message"
+    >
+      <span>
+        Add a new expense to begin ...
+      </span>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`should render expense list correctly with expenses 1`] = `
-<div>
-  <ExpenseItem
-    amount={250}
-    createdAt={0}
-    description="Gum"
-    id="1"
-    key="1"
-    note=""
-  />
-  <ExpenseItem
-    amount={10390}
-    createdAt={-345600000}
-    description="Cake"
-    id="2"
-    key="2"
-    note="Chocolate"
-  />
-  <ExpenseItem
-    amount={4500}
-    createdAt={345600000}
-    description="Credit"
-    id="3"
-    key="3"
-    note=""
-  />
+<div
+  className="content-container"
+>
+  <div
+    className="list-header"
+  >
+    <div
+      className="show-for-mobile"
+    >
+      Expenses
+    </div>
+    <div
+      className="show-for-desktop"
+    >
+      Expense
+    </div>
+    <div
+      className="show-for-desktop"
+    >
+      Amount
+    </div>
+  </div>
+  <div
+    className="list-body"
+  >
+    <ExpenseItem
+      amount={250}
+      createdAt={0}
+      description="Gum"
+      id="1"
+      key="1"
+      note=""
+    />
+    <ExpenseItem
+      amount={10390}
+      createdAt={-345600000}
+      description="Cake"
+      id="2"
+      key="2"
+      note="Chocolate"
+    />
+    <ExpenseItem
+      amount={4500}
+      createdAt={345600000}
+      description="Credit"
+      id="3"
+      key="3"
+      note=""
+    />
+  </div>
 </div>
 `;
